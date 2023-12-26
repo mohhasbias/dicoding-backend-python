@@ -1,0 +1,2600 @@
+# Forum API V1 Test
+
+###
+# group: Users
+# @name Add User with Valid Payload
+#POST {{protocol}}://{{host}}:{{port}}/users
+POST {{host}}:{{port}}/users
+Content-Type: application/json
+
+{
+    "username": "{{newUsername}}_{{$timestamp}}",
+    "password": "{{newPassword}}",
+    "fullname": "{{newFullname}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 201 status code', () => {
+
+    //     pm.response.to.have.status(201);
+
+    // });
+
+    // 
+
+    // pm.test('should response with correct property and message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('success');
+
+    //     pm.expect(responseJson.data).to.be.an('object');
+
+    //     pm.expect(responseJson.data.addedUser).to.be.an('object');
+
+    //     pm.expect(responseJson.data.addedUser.id).to.be.a('string');
+
+    //     pm.expect(responseJson.data.addedUser.username).to.be.a('string');
+
+    //     pm.expect(responseJson.data.addedUser.fullname).to.be.a('string');
+
+    // });
+
+    //
+%}
+
+###
+# group: Users
+# @name Add User with Bad Payload
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // let badAuthenticationPayloads = pm.environment.get('badAuthenticationPayloads');
+    
+    // 
+    
+    // if (!badAuthenticationPayloads || badAuthenticationPayloads.length === 0) {
+    
+    //     badAuthenticationPayloads = [
+    
+    //         {},
+    
+    //         { password: 'secret', fullname: 'Dicoding Indonesia' },
+    
+    //         { username: 123, password: 'secret', fullname: 'Dicoding Indonesia' },
+    
+    //         { username: 'dicoding', fullname: 'Dicoding Indonesia' },
+    
+    //         { username: 'dicoding', password: true, fullname: 'Dicoding Indonesia' },
+    
+    //         { username: 'dicoding', password: 'secret' },
+    
+    //         { username: 'dicoding', password: 'secret', fullname: [] },
+    
+    //     ];
+    
+    // }
+    
+    // 
+    
+    // const currentBadAuthenticationPayload = badAuthenticationPayloads.shift();
+    
+    // pm.environment.set('currentBadAuthenticationPayload', JSON.stringify(currentBadAuthenticationPayload));
+    
+    // pm.environment.set('badAuthenticationPayloads', badAuthenticationPayloads);
+//%}
+POST {{protocol}}://
+{{host}}:{{port}}/users
+Content-Type: application/json
+
+{{currentBadAuthenticationPayload}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('response status code should have 400 value', () => {
+
+    //    pm.response.to.have.status(400);
+
+    // }); 
+
+    // 
+
+    // pm.test('response body should have correct property and value', () => {
+
+    //     const responseJson = pm.response.json();
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equals('fail');
+
+    //     pm.expect(responseJson.message).to.be.a('string');
+
+    //     pm.expect(responseJson.message).to.not.equals('');
+
+    //     pm.expect(responseJson.message).to.not.equals(null);
+
+    // });
+
+    // 
+
+    // const repeatRequestUntilDatasetEmpty = () => {
+
+    //     const badAuthenticationPayloads = pm.environment.get('badAuthenticationPayloads');
+
+    //  
+
+    //     if(badAuthenticationPayloads && badAuthenticationPayloads.length > 0) {
+
+    //         postman.setNextRequest('Add User with Bad Payload');
+
+    //     }
+
+    // }
+
+    //  
+
+    // repeatRequestUntilDatasetEmpty();
+%}
+
+###
+# group: Users
+# @name Add User with Exist Username
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const host = pm.environment.get('host');
+    
+    // const port = pm.environment.get('port');
+    
+    // const protocol = pm.environment.get('protocol');
+    
+    // 
+    
+    // const postRequest = {
+    
+    //     url: `${protocol}://${host}:${port}/users`,
+    
+    //     method: 'POST',
+    
+    //     header: {
+    
+    //         'Content-Type': 'application/json',
+    
+    //     },
+    
+    //     body: {
+    
+    //         mode: 'raw',
+    
+    //         raw: JSON.stringify({
+    
+    //             username: pm.environment.get('newUsername'),
+    
+    //             password: pm.environment.get('newPassword'),
+    
+    //             fullname: pm.environment.get('newFullname')
+    
+    //         }),
+    
+    //     },
+    
+    // };
+    
+    // 
+    
+    // pm.sendRequest(postRequest, (error, response) => {
+    
+    //     console.log(error ? error : response.json());
+    
+    // });
+//%}
+POST {{protocol}}://
+{{host}}:{{port}}/users
+Content-Type: application/json
+
+{
+    "username": "{{newUsername}}",
+    "password": "{{newPassword}}",
+    "fullname": "{{newFullname}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 400 status code', () => {
+
+    //     pm.response.to.have.status(400);
+
+    // });
+
+    // 
+
+    // pm.test('should response with correct property and message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('fail');
+
+    //     pm.expect(responseJson.message).to.equal('username tidak tersedia');
+
+    // });
+
+    //
+%}
+
+###
+# group: Users
+# @name Add User with Exist Username Copy
+//< {%
+    // TODO: you can add here Pre-request handler
+//%}
+POST {{protocol}}://
+{{host}}:{{port}}/users
+Content-Type: application/json
+
+{
+    "username": "dico ding",
+    "password": "{{newPassword}}",
+    "fullname": "{{newFullname}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 400 status code', () => {
+
+    //     pm.response.to.have.status(400);
+
+    // });
+
+    // 
+
+    // pm.test('should response with correct property and message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('fail');
+
+    //     pm.expect(responseJson.message).to.equal('tidak dapat membuat user baru karena username mengandung karakter terlarang');
+
+    // });
+
+    //
+%}
+
+###
+# group: Authentications / [No Test] Prerequiresite
+# @name Add User
+POST {{protocol}}://
+{{host}}:{{port}}/users
+Content-Type: application/json
+
+{
+    "username": "{{newUsername}}",
+    "password": "{{newPassword}}",
+    "fullname": "{{newFullname}}"
+}
+
+> {%
+    // TODO: you can add here Response handler
+%}
+
+###
+# group: Authentications
+# @name Login with Invalid Password
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const host = pm.environment.get('host');
+    
+    // const port = pm.environment.get('port');
+    
+    // const protocol = pm.environment.get('protocol');
+    
+    // 
+    
+    // const postRequest = {
+    
+    //     url: `${protocol}://${host}:${port}/users`,
+    
+    //     method: 'POST',
+    
+    //     header: {
+    
+    //         'Content-Type': 'application/json',
+    
+    //     },
+    
+    //     body: {
+    
+    //         mode: 'raw',
+    
+    //         raw: JSON.stringify({
+    
+    //             username: pm.environment.get('newUsername'),
+    
+    //             password: pm.environment.get('newPassword'),
+    
+    //             fullname: pm.environment.get('newFullname')
+    
+    //         }),
+    
+    //     },
+    
+    // };
+    
+    // 
+    
+    // pm.sendRequest(postRequest, (error, response) => {
+    
+    //     console.log(error ? error : response.json());
+    
+    // });
+//%}
+POST {{host}}:{{port}}/authentications
+Content-Type: application/json
+
+{
+    "username": "{{newUsername}}",
+    "password": "xxx"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 401 status code', () => {
+
+    //     pm.response.to.have.status(401);
+
+    // });
+
+    // 
+
+    // pm.test('should respose with correct property and message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('fail');
+
+    //     pm.expect(responseJson.message).to.be.an('string');
+
+    // });
+%}
+
+###
+# group: Authentications
+# @name Login with Invalid Username
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const host = pm.environment.get('host');
+    
+    // const port = pm.environment.get('port');
+    
+    // const protocol = pm.environment.get('protocol');
+    
+    // 
+    
+    // const postRequest = {
+    
+    //     url: `${protocol}://${host}:${port}/users`,
+    
+    //     method: 'POST',
+    
+    //     header: {
+    
+    //         'Content-Type': 'application/json',
+    
+    //     },
+    
+    //     body: {
+    
+    //         mode: 'raw',
+    
+    //         raw: JSON.stringify({
+    
+    //             username: pm.environment.get('newUsername'),
+    
+    //             password: pm.environment.get('newPassword'),
+    
+    //             fullname: pm.environment.get('newFullname')
+    
+    //         }),
+    
+    //     },
+    
+    // };
+    
+    // 
+    
+    // pm.sendRequest(postRequest, (error, response) => {
+    
+    //     console.log(error ? error : response.json());
+    
+    // });
+//%}
+POST {{host}}:{{port}}/authentications
+Content-Type: application/json
+
+{
+    "username": "xxxx",
+    "password": "{{newPassword}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 400 status code', () => {
+
+    //     pm.response.to.have.status(400);
+
+    // });
+
+    // 
+
+    // pm.test('should respose with correct property and message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('fail');
+
+    //     pm.expect(responseJson.message).to.be.an('string');
+
+    // });
+%}
+
+###
+# group: Authentications
+# @name Login with Valid Credential
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const host = pm.environment.get('host');
+    
+    // const port = pm.environment.get('port');
+    
+    // const protocol = pm.environment.get('protocol');
+    
+    // 
+    
+    // const postRequest = {
+    
+    //     url: `${protocol}://${host}:${port}/users`,
+    
+    //     method: 'POST',
+    
+    //     header: {
+    
+    //         'Content-Type': 'application/json',
+    
+    //     },
+    
+    //     body: {
+    
+    //         mode: 'raw',
+    
+    //         raw: JSON.stringify({
+    
+    //             username: pm.environment.get('newUsername'),
+    
+    //             password: pm.environment.get('newPassword'),
+    
+    //             fullname: pm.environment.get('newFullname')
+    
+    //         }),
+    
+    //     },
+    
+    // };
+    
+    // 
+    
+    // pm.sendRequest(postRequest, (error, response) => {
+    
+    //     console.log(error ? error : response.json());
+    
+    // });
+//%}
+POST {{host}}:{{port}}/authentications
+Content-Type: application/json
+
+{
+    "username": "{{newUsername}}",
+    "password": "{{newPassword}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 201 status code', () => {
+
+    //     pm.response.to.have.status(201);
+
+    // });
+
+    // 
+
+    // pm.test('should respose with correct property and message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('success');
+
+    //     pm.expect(responseJson.data).to.be.an('object');
+
+    //     pm.expect(responseJson.data.accessToken).to.be.a('string');
+
+    //     pm.expect(responseJson.data.refreshToken).to.be.a('string');
+
+    // 
+
+    //     pm.environment.set('accessToken', responseJson.data.accessToken);
+
+    //     pm.environment.set('refreshToken', responseJson.data.refreshToken);
+
+    // });
+%}
+
+###
+# group: Authentications
+# @name Refresh Access Token with Valid Refresh Token
+PUT {{protocol}}://
+{{host}}:{{port}}/authentications
+Content-Type: application/json
+
+{
+    "refreshToken": "{{refreshToken}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 200 status code', () => {
+
+    //     pm.response.to.have.status(200);
+
+    // });
+
+    // 
+
+    // pm.test('should response with corrent message and property', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('success');
+
+    //     pm.expect(responseJson.data).to.be.an('object');
+
+    //     pm.expect(responseJson.data.accessToken).to.be.a('string');
+
+    //     pm.expect(responseJson.data.accessToken).to.not.equals('');
+
+    // });
+%}
+
+###
+# group: Authentications
+# @name Refresh Access Token with invalid Refresh Token
+PUT {{protocol}}://
+{{host}}:{{port}}/authentications
+Content-Type: application/json
+
+{
+    "refreshToken": "xxx"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 400 status code', () => {
+
+    //     pm.response.to.have.status(400);
+
+    // });
+
+    // 
+
+    // pm.test('should response with corrent message and property', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('fail');
+
+    //     pm.expect(responseJson.message).to.equal('refresh token tidak valid');
+
+    // });
+%}
+
+###
+# group: Authentications
+# @name Logout with Valid Refresh Token
+DELETE {{protocol}}://
+{{host}}:{{port}}/authentications
+Content-Type: application/json
+
+{
+    "refreshToken": "{{refreshToken}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response with 200 status code', () => {
+
+    //     pm.response.to.have.status(200);
+
+    // });
+
+    // 
+
+    // pm.test('response should contain status with success value', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('success');
+
+    // });
+
+    // 
+
+    // pm.test('when refreshing access token with the deleted refresh token', () => {
+
+    //     const host = pm.environment.get('host');
+
+    //     const port = pm.environment.get('port');
+
+    //     const protocol = pm.environment.get('protocol');
+
+    //     const refreshToken = pm.environment.get('refreshToken');
+
+    // 
+
+    //     const putRequest = {
+
+    //         url: `${protocol}://${host}:${port}/authentications`,
+
+    //         method: 'PUT',
+
+    //         header: {
+
+    //             'Content-Type': 'application/json',
+
+    //         },
+
+    //         body: {
+
+    //             mode: 'raw',
+
+    //             raw: JSON.stringify({ refreshToken }),
+
+    //         },
+
+    //     };
+
+    // 
+
+    //     pm.sendRequest(putRequest, (error, response) => {
+
+    //         if (!error) {
+
+    //             pm.test('the response code should be 400', () => {
+
+    //                 pm.expect(response.code).to.equals(400);
+
+    //             });
+
+    //         }
+
+    //     });
+
+    // })
+%}
+
+###
+# group: Authentications
+# @name Logout with Invalid Refresh Token
+DELETE {{protocol}}://
+{{host}}:{{port}}/authentications
+Content-Type: application/json
+
+{
+    "refreshToken": "xxx"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response with 400 status code', () => {
+
+    //     pm.response.to.have.status(400);
+
+    // });
+
+    // 
+
+    // pm.test('response should contain correct status and message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    //     
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('fail');
+
+    //     pm.expect(responseJson.message).to.equal('refresh token tidak ditemukan di database');
+
+    // })
+
+    //
+%}
+
+###
+# group: Threads / [No Test] Prerequiresite
+# @name [No Test] Add User
+POST {{protocol}}://
+{{host}}:{{port}}/users
+Content-Type: application/json
+
+{
+    "username": "{{newUsername}}",
+    "password": "{{newPassword}}",
+    "fullname": "{{newFullname}}"
+}
+
+> {%
+    // TODO: you can add here Response handler
+%}
+
+###
+# group: Threads / [No Test] Prerequiresite
+# @name [No Test] Login
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const host = pm.environment.get('host');
+    
+    // const port = pm.environment.get('port');
+    
+    // const protocol = pm.environment.get('protocol');
+    
+    // 
+    
+    // const postRequest = {
+    
+    //     url: `${protocol}://${host}:${port}/users`,
+    
+    //     method: 'POST',
+    
+    //     header: {
+    
+    //         'Content-Type': 'application/json',
+    
+    //     },
+    
+    //     body: {
+    
+    //         mode: 'raw',
+    
+    //         raw: JSON.stringify({
+    
+    //             username: pm.environment.get('newUsername'),
+    
+    //             password: pm.environment.get('newPassword'),
+    
+    //             fullname: pm.environment.get('newFullname')
+    
+    //         }),
+    
+    //     },
+    
+    // };
+    
+    // 
+    
+    // pm.sendRequest(postRequest, (error, response) => {
+    
+    //     console.log(error ? error : response.json());
+    
+    // });
+//%}
+POST {{protocol}}://
+{{host}}:{{port}}/authentications
+Content-Type: application/json
+
+{
+    "username": "{{newUsername}}",
+    "password": "{{newPassword}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const responseJson = pm.response.json();
+
+    // 
+
+    // pm.environment.set('accessToken', responseJson.data.accessToken);
+
+    // pm.environment.set('refreshToken', responseJson.data.refreshToken);
+%}
+
+###
+# group: Threads
+# @name Add Thread with No Authentication
+POST {{protocol}}://
+{{host}}:{{port}}/threads
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 401 status code', () => {
+
+    //     pm.response.to.have.status(401);
+
+    // });
+
+    // 
+
+    // pm.test('should show Missing Authentication message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.message).to.equal('Missing authentication');
+
+    // });
+%}
+
+###
+# group: Threads
+# @name Add Thread with Bad Payload
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // let badThreadPayloads = pm.environment.get('badThreadPayloads');
+    
+    // 
+    
+    // if (!badThreadPayloads || badThreadPayloads.length === 0) {
+    
+    //     badThreadPayloads = [
+    
+    //         {},
+    
+    //         { body: 'A Body' },
+    
+    //         { title: 123, body: 'A Body' },
+    
+    //         { title: 'A Thread' },
+    
+    //         { title: 'A Thread', body: true },
+    
+    //     ];
+    
+    // }
+    
+    // 
+    
+    // const currentBadThreadPayload = badThreadPayloads.shift();
+    
+    // pm.environment.set('currentBadThreadPayload', JSON.stringify(currentBadThreadPayload));
+    
+    // pm.environment.set('badThreadPayloads', badThreadPayloads);
+//%}
+POST {{protocol}}://
+{{host}}:{{port}}/threads
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{{currentBadThreadPayload}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 400 status code', () => {
+
+    //     pm.response.to.have.status(400);
+
+    // });
+
+    // 
+
+    // pm.test('should show fail status and message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('fail');
+
+    //     pm.expect(responseJson.message).to.be.a('string');
+
+    //     pm.expect(responseJson.message).to.not.equal('');
+
+    // });
+
+    // 
+
+    // const repeatRequestUntilDatasetEmpty = () => {
+
+    //     const badThreadPayloads = pm.environment.get('badThreadPayloads');
+
+    //  
+
+    //     if(badThreadPayloads && badThreadPayloads.length > 0) {
+
+    //         postman.setNextRequest('Add Thread with Bad Payload');
+
+    //     }
+
+    // }
+
+    //  
+
+    // repeatRequestUntilDatasetEmpty();
+%}
+
+###
+# group: Threads
+# @name Add Thread with Valid Payload
+POST {{protocol}}://
+{{host}}:{{port}}/threads
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "title": "{{newThreadTitle}}",
+    "body": "{{newThreadBody}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 201 status code', () => {
+
+    //     pm.response.to.have.status(201);
+
+    // });
+
+    // 
+
+    // pm.test('should response with valid property and value', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('success');
+
+    //     pm.expect(responseJson.data).to.be.an('object');
+
+    //     pm.expect(responseJson.data.addedThread).to.be.an('object');
+
+    //     pm.expect(responseJson.data.addedThread.id).to.be.a('string');
+
+    //     pm.expect(responseJson.data.addedThread.id).to.not.equal('');
+
+    //     pm.expect(responseJson.data.addedThread.title).to.be.a('string');
+
+    //     pm.expect(responseJson.data.addedThread.title).to.not.equal('');
+
+    //     pm.expect(responseJson.data.addedThread.owner).to.be.a('string');
+
+    //     pm.expect(responseJson.data.addedThread.owner).to.not.equal('');
+
+    // });
+%}
+
+###
+# group: Comments / [No Test] Prerequiresite
+# @name [No Test] Add User Dicoding
+POST {{protocol}}://
+{{host}}:{{port}}/users
+Content-Type: application/json
+
+{
+    "username": "{{newUsername}}",
+    "password": "{{newPassword}}",
+    "fullname": "{{newFullname}}"
+}
+
+> {%
+    // TODO: you can add here Response handler
+%}
+
+###
+# group: Comments / [No Test] Prerequiresite
+# @name [No Test] Add User Johndoe
+POST {{protocol}}://
+{{host}}:{{port}}/users
+Content-Type: application/json
+
+{
+    "username": "{{newUsername2}}",
+    "password": "{{newPassword2}}",
+    "fullname": "{{newFullname2}}"
+}
+
+> {%
+    // TODO: you can add here Response handler
+%}
+
+###
+# group: Comments / [No Test] Prerequiresite
+# @name [No Test] Login User Dicoding
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const host = pm.environment.get('host');
+    
+    // const port = pm.environment.get('port');
+    
+    // const protocol = pm.environment.get('protocol');
+    
+    // 
+    
+    // const postRequest = {
+    
+    //     url: `${protocol}://${host}:${port}/users`,
+    
+    //     method: 'POST',
+    
+    //     header: {
+    
+    //         'Content-Type': 'application/json',
+    
+    //     },
+    
+    //     body: {
+    
+    //         mode: 'raw',
+    
+    //         raw: JSON.stringify({
+    
+    //             username: pm.environment.get('newUsername'),
+    
+    //             password: pm.environment.get('newPassword'),
+    
+    //             fullname: pm.environment.get('newFullname')
+    
+    //         }),
+    
+    //     },
+    
+    // };
+    
+    // 
+    
+    // pm.sendRequest(postRequest, (error, response) => {
+    
+    //     console.log(error ? error : response.json());
+    
+    // });
+//%}
+POST {{protocol}}://
+{{host}}:{{port}}/authentications
+Content-Type: application/json
+
+{
+    "username": "{{newUsername}}",
+    "password": "{{newPassword}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const responseJson = pm.response.json();
+
+    // 
+
+    // pm.environment.set('accessToken', responseJson.data.accessToken);
+
+    // pm.environment.set('refreshToken', responseJson.data.refreshToken);
+%}
+
+###
+# group: Comments / [No Test] Prerequiresite
+# @name [No Test] Login User Johndoe
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const host = pm.environment.get('host');
+    
+    // const port = pm.environment.get('port');
+    
+    // const protocol = pm.environment.get('protocol');
+    
+    // 
+    
+    // const postRequest = {
+    
+    //     url: `${protocol}://${host}:${port}/users`,
+    
+    //     method: 'POST',
+    
+    //     header: {
+    
+    //         'Content-Type': 'application/json',
+    
+    //     },
+    
+    //     body: {
+    
+    //         mode: 'raw',
+    
+    //         raw: JSON.stringify({
+    
+    //             username: pm.environment.get('newUsername'),
+    
+    //             password: pm.environment.get('newPassword'),
+    
+    //             fullname: pm.environment.get('newFullname')
+    
+    //         }),
+    
+    //     },
+    
+    // };
+    
+    // 
+    
+    // pm.sendRequest(postRequest, (error, response) => {
+    
+    //     console.log(error ? error : response.json());
+    
+    // });
+//%}
+POST {{protocol}}://
+{{host}}:{{port}}/authentications
+Content-Type: application/json
+
+{
+    "username": "{{newUsername2}}",
+    "password": "{{newPassword2}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const responseJson = pm.response.json();
+
+    // 
+
+    // pm.environment.set('accessToken2', responseJson.data.accessToken);
+
+    // pm.environment.set('refreshToken2', responseJson.data.refreshToken);
+%}
+
+###
+# group: Comments / [No Test] Prerequiresite
+# @name [No Test] Add Thread with User Dicoding
+POST {{protocol}}://
+{{host}}:{{port}}/threads
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "title": "{{newThreadTitle}}",
+    "body": "{{newThreadBody}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const responseJson = pm.response.json();
+
+    // 
+
+    // pm.environment.set('threadId', responseJson.data.addedThread.id);
+%}
+
+###
+# group: Comments
+# @name Add Comment with No Authentication
+POST {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments
+Content-Type: application/json
+
+{
+    "content": "{{newCommentContent}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 401 status code', () => {
+
+    //     pm.response.to.have.status(401);
+
+    // });
+
+    // 
+
+    // pm.test('should show Missing Authentication message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.message).to.equal('Missing authentication');
+
+    // });
+%}
+
+###
+# group: Comments
+# @name Add Comment with Not Found Thread
+POST {{protocol}}://
+{{host}}:{{port}}/threads/xxx/comments
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "content": "{{newCommentContent}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('response should have 404 status code', () => {
+
+    //     pm.response.to.have.status(404);
+
+    // });
+
+    // 
+
+    // pm.test('response should have correct property and value', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('fail');
+
+    //     pm.expect(responseJson.message).to.not.equal('');
+
+    // })
+%}
+
+###
+# group: Comments
+# @name Add Comment with Invalid Payload
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // let badAddCommentPayloads = pm.environment.get('badAddCommentPayloads');
+    
+    // 
+    
+    // if (!badAddCommentPayloads || badAddCommentPayloads.length === 0) {
+    
+    //     badAddCommentPayloads = [
+    
+    //         {},
+    
+    //         { content: 123 },
+    
+    //     ];
+    
+    // }
+    
+    // 
+    
+    // const currentBadAddCommentPayload = badAddCommentPayloads.shift();
+    
+    // pm.environment.set('currentBadAddCommentPayload', JSON.stringify(currentBadAddCommentPayload));
+    
+    // pm.environment.set('badAddCommentPayloads', badAddCommentPayloads);
+//%}
+POST {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{{currentBadAddCommentPayload}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('response should have 400 status code', () => {
+
+    //     pm.response.to.have.status(400);
+
+    // });
+
+    // 
+
+    // pm.test('response should have correct property and value', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('fail');
+
+    //     pm.expect(responseJson.message).to.not.equal('');
+
+    // });
+
+    // 
+
+    // const repeatRequestUntilDatasetEmpty = () => {
+
+    //     const badAddCommentPayloads = pm.environment.get('badAddCommentPayloads');
+
+    //  
+
+    //     if(badAddCommentPayloads && badAddCommentPayloads.length > 0) {
+
+    //         postman.setNextRequest('Add Comment with Invalid Payload');
+
+    //     }
+
+    // }
+
+    //  
+
+    // repeatRequestUntilDatasetEmpty();
+
+    //
+%}
+
+###
+# group: Comments
+# @name Add Comment with User Johndoe
+POST {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments
+Authorization: Bearer {{accessToken2}}
+Content-Type: application/json
+
+{
+    "content": "{{newCommentContent}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('response should have 201 status code', () => {
+
+    //     pm.response.to.have.status(201);
+
+    // });
+
+    // 
+
+    // pm.test('response should have correct property and value', () => {
+
+    //     const content = pm.environment.get('newCommentContent');
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('success');
+
+    //     pm.expect(responseJson.data).to.be.an('object');
+
+    //     pm.expect(responseJson.data.addedComment).to.be.an('object');
+
+    //     pm.expect(responseJson.data.addedComment.id).to.be.a('string');
+
+    //     pm.expect(responseJson.data.addedComment.id).to.not.equal('');
+
+    //     pm.expect(responseJson.data.addedComment.content).to.equal(content);
+
+    //     pm.expect(responseJson.data.addedComment.owner).to.be.a('string');
+
+    //     pm.expect(responseJson.data.addedComment.owner).to.not.equal('');
+
+    // })
+%}
+
+###
+# group: Comments
+# @name Add Comment with User Dicoding
+POST {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "content": "{{newCommentContent}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('response should have 201 status code', () => {
+
+    //     pm.response.to.have.status(201);
+
+    // });
+
+    // 
+
+    // pm.test('response should have correct property and value', () => {
+
+    //     const content = pm.environment.get('newCommentContent');
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('success');
+
+    //     pm.expect(responseJson.data).to.be.an('object');
+
+    //     pm.expect(responseJson.data.addedComment).to.be.an('object');
+
+    //     pm.expect(responseJson.data.addedComment.id).to.be.a('string');
+
+    //     pm.expect(responseJson.data.addedComment.id).to.not.equal('');
+
+    //     pm.expect(responseJson.data.addedComment.content).to.equal(content);
+
+    //     pm.expect(responseJson.data.addedComment.owner).to.be.a('string');
+
+    //     pm.expect(responseJson.data.addedComment.owner).to.not.equal('');
+
+    // 
+
+    //     pm.environment.set('commentId', responseJson.data.addedComment.id);
+
+    // })
+%}
+
+###
+# group: Comments
+# @name Get Commented Thread
+GET {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response with status code 200', () => {
+
+    //     pm.response.to.have.status(200);
+
+    // });
+
+    // 
+
+    // pm.test('should contain correct property and value', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('success');
+
+    //     pm.expect(responseJson.data).to.be.an('object');
+
+    //     pm.expect(responseJson.data.thread).to.be.an('object');
+
+    //     pm.expect(responseJson.data.thread.id).to.be.a('string');
+
+    //     pm.expect(responseJson.data.thread.id).to.not.equal('');
+
+    //     pm.expect(responseJson.data.thread.title).to.equal(pm.environment.get('newThreadTitle'));
+
+    //     pm.expect(responseJson.data.thread.body).to.equal(pm.environment.get('newThreadBody'));
+
+    //     pm.expect(responseJson.data.thread.date).to.be.a('string');
+
+    //     pm.expect(responseJson.data.thread.data).to.not.equal('');
+
+    //     pm.expect(responseJson.data.thread.username).to.equal(pm.environment.get('newUsername'));
+
+    //     pm.expect(responseJson.data.thread.comments).to.be.an('array');
+
+    //     pm.expect(responseJson.data.thread.comments).to.have.length(2);
+
+    //     
+
+    //     const [comment1, comment2] = responseJson.data.thread.comments;
+
+    // 
+
+    //     pm.expect(comment1).to.be.an('object');
+
+    //     pm.expect(comment1.id).to.be.a('string');
+
+    //     pm.expect(comment1.username).to.equal(pm.environment.get('newUsername2'));
+
+    //     pm.expect(comment1.date).to.be.a('string');
+
+    //     pm.expect(comment1.content).to.equal(pm.environment.get('newCommentContent'));
+
+    // 
+
+    //     pm.expect(comment2).to.be.an('object');
+
+    //     pm.expect(comment2.id).to.be.a('string');
+
+    //     pm.expect(comment2.username).to.equal(pm.environment.get('newUsername'));
+
+    //     pm.expect(comment2.date).to.be.a('string');
+
+    //     pm.expect(comment2.content).to.equal(pm.environment.get('newCommentContent'));
+
+    // });
+%}
+
+###
+# group: Comments
+# @name Delete Dicoding Comment with No Authentication
+DELETE {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments/{{commentId}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 401 status code', () => {
+
+    //     pm.response.to.have.status(401);
+
+    // });
+
+    // 
+
+    // pm.test('should show Missing Authentication message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.message).to.equal('Missing authentication');
+
+    // });
+%}
+
+###
+# group: Comments
+# @name Delete Not Found Comment
+DELETE {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments/xxx
+Authorization: Bearer {{accessToken}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 404 status code', () => {
+
+    //     pm.response.to.have.status(404);
+
+    // });
+
+    // 
+
+    // pm.test('should show Missing Authentication message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('fail');
+
+    //     pm.expect(responseJson.message).to.be.a('string');
+
+    //     pm.expect(responseJson.message).to.not.equal('');
+
+    // });
+%}
+
+###
+# group: Comments
+# @name Delete Dicoding Comment with Using Johndoe
+DELETE {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments/{{commentId}}
+Authorization: Bearer {{accessToken2}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 403 status code', () => {
+
+    //     pm.response.to.have.status(403);
+
+    // });
+
+    // 
+
+    // pm.test('should show Missing Authentication message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('fail');
+
+    //     pm.expect(responseJson.message).to.be.a('string');
+
+    //     pm.expect(responseJson.message).to.not.equal('');
+
+    // });
+%}
+
+###
+# group: Comments
+# @name Delete Dicoding Comment with Using Dicoding
+DELETE {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments/{{commentId}}
+Authorization: Bearer {{accessToken}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 200 status code', () => {
+
+    //     pm.response.to.have.status(200);
+
+    // });
+
+    // 
+
+    // pm.test('should show Missing Authentication message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('success');
+
+    // });
+%}
+
+###
+# group: Comments
+# @name Get Thread After Dicoding Comment Deleted
+GET {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response with status code 200', () => {
+
+    //     pm.response.to.have.status(200);
+
+    // });
+
+    // 
+
+    // pm.test('should contain correct property and value', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('success');
+
+    //     pm.expect(responseJson.data).to.be.an('object');
+
+    //     pm.expect(responseJson.data.thread).to.be.an('object');
+
+    //     pm.expect(responseJson.data.thread.id).to.be.a('string');
+
+    //     pm.expect(responseJson.data.thread.id).to.not.equal('');
+
+    //     pm.expect(responseJson.data.thread.title).to.equal(pm.environment.get('newThreadTitle'));
+
+    //     pm.expect(responseJson.data.thread.body).to.equal(pm.environment.get('newThreadBody'));
+
+    //     pm.expect(responseJson.data.thread.date).to.be.a('string');
+
+    //     pm.expect(responseJson.data.thread.data).to.not.equal('');
+
+    //     pm.expect(responseJson.data.thread.username).to.equal(pm.environment.get('newUsername'));
+
+    //     pm.expect(responseJson.data.thread.comments).to.be.an('array');
+
+    //     pm.expect(responseJson.data.thread.comments).to.have.length(2);
+
+    //     
+
+    //     const [comment1, comment2] = responseJson.data.thread.comments;
+
+    // 
+
+    //     pm.expect(comment1).to.be.an('object');
+
+    //     pm.expect(comment1.id).to.be.a('string');
+
+    //     pm.expect(comment1.username).to.equal(pm.environment.get('newUsername2'));
+
+    //     pm.expect(comment1.date).to.be.a('string');
+
+    //     pm.expect(comment1.content).to.equal(pm.environment.get('newCommentContent'));
+
+    // 
+
+    //     pm.expect(comment2).to.be.an('object');
+
+    //     pm.expect(comment2.id).to.be.a('string');
+
+    //     pm.expect(comment2.username).to.equal(pm.environment.get('newUsername'));
+
+    //     pm.expect(comment2.date).to.be.a('string');
+
+    //     pm.expect(comment2.content).to.equal('**komentar telah dihapus**');
+
+    // });
+%}
+
+###
+# group: [Optional] Replies / [No Test] Prerequiresite
+# @name [No Test] Add User Dicoding
+POST {{protocol}}://
+{{host}}:{{port}}/users
+Content-Type: application/json
+
+{
+    "username": "{{newUsername}}",
+    "password": "{{newPassword}}",
+    "fullname": "{{newFullname}}"
+}
+
+> {%
+    // TODO: you can add here Response handler
+%}
+
+###
+# group: [Optional] Replies / [No Test] Prerequiresite
+# @name [No Test] Add User Johndoe
+POST {{protocol}}://
+{{host}}:{{port}}/users
+Content-Type: application/json
+
+{
+    "username": "{{newUsername2}}",
+    "password": "{{newPassword2}}",
+    "fullname": "{{newFullname2}}"
+}
+
+> {%
+    // TODO: you can add here Response handler
+%}
+
+###
+# group: [Optional] Replies / [No Test] Prerequiresite
+# @name [No Test] Login User Dicoding
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const host = pm.environment.get('host');
+    
+    // const port = pm.environment.get('port');
+    
+    // const protocol = pm.environment.get('protocol');
+    
+    // 
+    
+    // const postRequest = {
+    
+    //     url: `${protocol}://${host}:${port}/users`,
+    
+    //     method: 'POST',
+    
+    //     header: {
+    
+    //         'Content-Type': 'application/json',
+    
+    //     },
+    
+    //     body: {
+    
+    //         mode: 'raw',
+    
+    //         raw: JSON.stringify({
+    
+    //             username: pm.environment.get('newUsername'),
+    
+    //             password: pm.environment.get('newPassword'),
+    
+    //             fullname: pm.environment.get('newFullname')
+    
+    //         }),
+    
+    //     },
+    
+    // };
+    
+    // 
+    
+    // pm.sendRequest(postRequest, (error, response) => {
+    
+    //     console.log(error ? error : response.json());
+    
+    // });
+//%}
+POST {{protocol}}://
+{{host}}:{{port}}/authentications
+Content-Type: application/json
+
+{
+    "username": "{{newUsername}}",
+    "password": "{{newPassword}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const responseJson = pm.response.json();
+
+    // 
+
+    // pm.environment.set('accessToken', responseJson.data.accessToken);
+
+    // pm.environment.set('refreshToken', responseJson.data.refreshToken);
+%}
+
+###
+# group: [Optional] Replies / [No Test] Prerequiresite
+# @name [No Test] Login User Johndoe
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const host = pm.environment.get('host');
+    
+    // const port = pm.environment.get('port');
+    
+    // const protocol = pm.environment.get('protocol');
+    
+    // 
+    
+    // const postRequest = {
+    
+    //     url: `${protocol}://${host}:${port}/users`,
+    
+    //     method: 'POST',
+    
+    //     header: {
+    
+    //         'Content-Type': 'application/json',
+    
+    //     },
+    
+    //     body: {
+    
+    //         mode: 'raw',
+    
+    //         raw: JSON.stringify({
+    
+    //             username: pm.environment.get('newUsername'),
+    
+    //             password: pm.environment.get('newPassword'),
+    
+    //             fullname: pm.environment.get('newFullname')
+    
+    //         }),
+    
+    //     },
+    
+    // };
+    
+    // 
+    
+    // pm.sendRequest(postRequest, (error, response) => {
+    
+    //     console.log(error ? error : response.json());
+    
+    // });
+//%}
+POST {{protocol}}://
+{{host}}:{{port}}/authentications
+Content-Type: application/json
+
+{
+    "username": "{{newUsername2}}",
+    "password": "{{newPassword2}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const responseJson = pm.response.json();
+
+    // 
+
+    // pm.environment.set('accessToken2', responseJson.data.accessToken);
+
+    // pm.environment.set('refreshToken2', responseJson.data.refreshToken);
+%}
+
+###
+# group: [Optional] Replies / [No Test] Prerequiresite
+# @name [No Test] Add Thread with User Dicoding
+POST {{protocol}}://
+{{host}}:{{port}}/threads
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "title": "{{newThreadTitle}}",
+    "body": "{{newThreadBody}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const responseJson = pm.response.json();
+
+    // 
+
+    // pm.environment.set('threadId', responseJson.data.addedThread.id);
+%}
+
+###
+# group: [Optional] Replies / [No Test] Prerequiresite
+# @name [No Test] Add Comment with User Dicoding
+POST {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "content": "{{newCommentContent}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const responseJson = pm.response.json();
+
+    // 
+
+    // pm.environment.set('commentId', responseJson.data.addedComment.id);
+%}
+
+###
+# group: [Optional] Replies / [No Test] Prerequiresite
+# @name [No Test] Add Another Comment with User Dicoding
+POST {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "content": "{{newCommentContent}}"
+}
+
+> {%
+    // TODO: you can add here Response handler
+%}
+
+###
+# group: [Optional] Replies
+# @name [Optional] Add Reply to Dicoding Comment with No Authentication
+POST {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments/{{commentId}}/replies
+Content-Type: application/json
+
+{
+    "content": "{{newReplyContent}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 401 status code', () => {
+
+    //     pm.response.to.have.status(401);
+
+    // });
+
+    // 
+
+    // pm.test('should show Missing Authentication message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.message).to.equal('Missing authentication');
+
+    // });
+%}
+
+###
+# group: [Optional] Replies
+# @name [Optional] Add Reply to Dicoding Comment with Invalid Thread
+POST {{protocol}}://
+{{host}}:{{port}}/threads/xxxx/comments/{{commentId}}/replies
+Authorization: Bearer {{accessToken2}}
+Content-Type: application/json
+
+{
+    "content": "{{newReplyContent}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response with 404 status code', () => {
+
+    //     pm.response.to.have.status(404);
+
+    // });
+
+    // 
+
+    // pm.test('should fail status and message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('fail');
+
+    //     pm.expect(responseJson.message).to.be.a('string');
+
+    //     pm.expect(responseJson.message).to.not.equal('');
+
+    // })
+%}
+
+###
+# group: [Optional] Replies
+# @name [Optional] Add Reply to Invalid Comment
+POST {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments/xxx/replies
+Authorization: Bearer {{accessToken2}}
+Content-Type: application/json
+
+{
+    "content": "{{newReplyContent}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response with 404 status code', () => {
+
+    //     pm.response.to.have.status(404);
+
+    // });
+
+    // 
+
+    // pm.test('should fail status and message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('fail');
+
+    //     pm.expect(responseJson.message).to.be.a('string');
+
+    //     pm.expect(responseJson.message).to.not.equal('');
+
+    // })
+%}
+
+###
+# group: [Optional] Replies
+# @name [Optional] Add Reply to Dicoding Comment with Bad Payload
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // let badAddReplyPayloads = pm.environment.get('badAddReplyPayloads');
+    
+    // 
+    
+    // if (!badAddReplyPayloads || badAddReplyPayloads.length === 0) {
+    
+    //     badAddReplyPayloads = [
+    
+    //         {},
+    
+    //         { content: 123 },
+    
+    //     ]
+    
+    // }
+    
+    // 
+    
+    // const currentBadAddReplyPayload = badAddReplyPayloads.shift();
+    
+    // pm.environment.set('badAddReplyPayloads', badAddReplyPayloads);
+    
+    // pm.environment.set('currentBadAddReplyPayload', JSON.stringify(currentBadAddReplyPayload));
+    
+    //
+//%}
+POST {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments/{{commentId}}/replies
+Authorization: Bearer {{accessToken2}}
+Content-Type: application/json
+
+{{currentBadAddReplyPayload}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('response should have 400 status code', () => {
+
+    //     pm.response.to.have.status(400);
+
+    // });
+
+    // 
+
+    // pm.test('response should have correct property and value', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('fail');
+
+    //     pm.expect(responseJson.message).to.not.equal('');
+
+    // });
+
+    // 
+
+    // const repeatRequestUntilDatasetEmpty = () => {
+
+    //     const badAddReplyPayloads = pm.environment.get('badAddReplyPayloads');
+
+    //  
+
+    //     if(badAddReplyPayloads && badAddReplyPayloads.length > 0) {
+
+    //         postman.setNextRequest('[Optional] Add Reply to Dicoding Comment with Bad Payload');
+
+    //     }
+
+    // }
+
+    //  
+
+    // repeatRequestUntilDatasetEmpty();
+
+    //
+%}
+
+###
+# group: [Optional] Replies
+# @name [Optional] Add Reply to Dicoding Comment using Johndoe
+POST {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments/{{commentId}}/replies
+Authorization: Bearer {{accessToken2}}
+Content-Type: application/json
+
+{
+    "content": "{{newReplyContent}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response with 201 status code', () => {
+
+    //     pm.response.to.have.status(201);
+
+    // });
+
+    // 
+
+    // pm.test('should contain correct property and value', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('success');
+
+    //     pm.expect(responseJson.data).to.be.an('object');
+
+    //     pm.expect(responseJson.data.addedReply).to.be.an('object');
+
+    //     pm.expect(responseJson.data.addedReply.id).to.be.a('string');
+
+    //     pm.expect(responseJson.data.addedReply.id).to.not.equal('');
+
+    //     pm.expect(responseJson.data.addedReply.content).to.equal(pm.environment.get('newReplyContent'));
+
+    //     pm.expect(responseJson.data.addedReply.owner).to.be.a('string');
+
+    //     pm.expect(responseJson.data.addedReply.owner).to.not.equal('');
+
+    // 
+
+    //     pm.environment.set('replyId', responseJson.data.addedReply.id);
+
+    // })
+%}
+
+###
+# group: [Optional] Replies
+# @name [Optional] Add Reply to Dicoding Comment using Dicoding
+POST {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments/{{commentId}}/replies
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "content": "{{newReplyContent}}"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response with 201 status code', () => {
+
+    //     pm.response.to.have.status(201);
+
+    // });
+
+    // 
+
+    // pm.test('should contain correct property and value', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('success');
+
+    //     pm.expect(responseJson.data).to.be.an('object');
+
+    //     pm.expect(responseJson.data.addedReply).to.be.an('object');
+
+    //     pm.expect(responseJson.data.addedReply.id).to.be.a('string');
+
+    //     pm.expect(responseJson.data.addedReply.id).to.not.equal('');
+
+    //     pm.expect(responseJson.data.addedReply.content).to.equal(pm.environment.get('newReplyContent'));
+
+    //     pm.expect(responseJson.data.addedReply.owner).to.be.a('string');
+
+    //     pm.expect(responseJson.data.addedReply.owner).to.not.equal('');
+
+    // })
+%}
+
+###
+# group: [Optional] Replies
+# @name [Optional] Get Replied Thread
+GET {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response with status code 200', () => {
+
+    //     pm.response.to.have.status(200);
+
+    // });
+
+    // 
+
+    // pm.test('should contain correct property and value', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('success');
+
+    //     pm.expect(responseJson.data).to.be.an('object');
+
+    //     pm.expect(responseJson.data.thread).to.be.an('object');
+
+    //     pm.expect(responseJson.data.thread.id).to.be.a('string');
+
+    //     pm.expect(responseJson.data.thread.id).to.not.equal('');
+
+    //     pm.expect(responseJson.data.thread.title).to.equal(pm.environment.get('newThreadTitle'));
+
+    //     pm.expect(responseJson.data.thread.body).to.equal(pm.environment.get('newThreadBody'));
+
+    //     pm.expect(responseJson.data.thread.date).to.be.a('string');
+
+    //     pm.expect(responseJson.data.thread.data).to.not.equal('');
+
+    //     pm.expect(responseJson.data.thread.username).to.equal(pm.environment.get('newUsername'));
+
+    //     pm.expect(responseJson.data.thread.comments).to.be.an('array');
+
+    //     pm.expect(responseJson.data.thread.comments).to.have.length(2);
+
+    //     
+
+    //     const [comment1, comment2] = responseJson.data.thread.comments;
+
+    // 
+
+    //     pm.expect(comment1).to.be.an('object');
+
+    //     pm.expect(comment1.id).to.be.a('string');
+
+    //     pm.expect(comment1.username).to.equal(pm.environment.get('newUsername'));
+
+    //     pm.expect(comment1.date).to.be.a('string');
+
+    //     pm.expect(comment1.content).to.equal(pm.environment.get('newCommentContent'));
+
+    //     pm.expect(comment1.replies).to.be.an('array');
+
+    //     pm.expect(comment1.replies).to.have.length(2);
+
+    // 
+
+    //     // this is to make sure reply on show on replied comment
+
+    //     pm.expect(comment2.replies).to.have.length(0);
+
+    // 
+
+    //     const [reply1, reply2] = comment1.replies;
+
+    // 
+
+    //     pm.expect(reply1).to.be.an('object');
+
+    //     pm.expect(reply1.id).to.be.a('string');
+
+    //     pm.expect(reply1.id).to.not.equal('');
+
+    //     pm.expect(reply1.content).to.equal(pm.environment.get('newReplyContent'));
+
+    //     pm.expect(reply1.date).to.be.a('string');
+
+    //     pm.expect(reply1.date).to.not.equal('');
+
+    //     pm.expect(reply1.username).to.equal(pm.environment.get('newUsername2'));
+
+    // 
+
+    //     pm.expect(reply2).to.be.an('object');
+
+    //     pm.expect(reply2.id).to.be.a('string');
+
+    //     pm.expect(reply2.id).to.not.equal('');
+
+    //     pm.expect(reply2.content).to.equal(pm.environment.get('newReplyContent'));
+
+    //     pm.expect(reply2.date).to.be.a('string');
+
+    //     pm.expect(reply2.date).to.not.equal('');
+
+    //     pm.expect(reply2.username).to.equal(pm.environment.get('newUsername'));
+
+    // });
+%}
+
+###
+# group: [Optional] Replies
+# @name [Optional] Delete Not Found Reply
+DELETE {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments/{{commentId}}/replies/xxx
+Authorization: Bearer {{accessToken}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 404 status code', () => {
+
+    //     pm.response.to.have.status(404);
+
+    // });
+
+    // 
+
+    // pm.test('should show Missing Authentication message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('fail');
+
+    //     pm.expect(responseJson.message).to.be.a('string');
+
+    //     pm.expect(responseJson.message).to.not.equal('');
+
+    // });
+%}
+
+###
+# group: [Optional] Replies
+# @name [Optional] Delete Johndoe Reply using Dicoding
+DELETE {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments/{{commentId}}/replies/{{replyId}}
+Authorization: Bearer {{accessToken}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 403 status code', () => {
+
+    //     pm.response.to.have.status(403);
+
+    // });
+
+    // 
+
+    // pm.test('should show Missing Authentication message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('fail');
+
+    //     pm.expect(responseJson.message).to.be.a('string');
+
+    //     pm.expect(responseJson.message).to.not.equal('');
+
+    // });
+%}
+
+###
+# group: [Optional] Replies
+# @name [Optional] Delete Johndoe Reply using Johndoe
+DELETE {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}/comments/{{commentId}}/replies/{{replyId}}
+Authorization: Bearer {{accessToken2}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response 200 status code', () => {
+
+    //     pm.response.to.have.status(200);
+
+    // });
+
+    // 
+
+    // pm.test('should show Missing Authentication message', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('success');
+
+    // });
+%}
+
+###
+# group: [Optional] Replies
+# @name [Optional] Get Replied Thread After Johndoe Reply Deleted
+GET {{protocol}}://
+{{host}}:{{port}}/threads/{{threadId}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test('should response with status code 200', () => {
+
+    //     pm.response.to.have.status(200);
+
+    // });
+
+    // 
+
+    // pm.test('should contain correct property and value', () => {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson).to.be.an('object');
+
+    //     pm.expect(responseJson.status).to.equal('success');
+
+    //     pm.expect(responseJson.data).to.be.an('object');
+
+    //     pm.expect(responseJson.data.thread).to.be.an('object');
+
+    //     pm.expect(responseJson.data.thread.id).to.be.a('string');
+
+    //     pm.expect(responseJson.data.thread.id).to.not.equal('');
+
+    //     pm.expect(responseJson.data.thread.title).to.equal(pm.environment.get('newThreadTitle'));
+
+    //     pm.expect(responseJson.data.thread.body).to.equal(pm.environment.get('newThreadBody'));
+
+    //     pm.expect(responseJson.data.thread.date).to.be.a('string');
+
+    //     pm.expect(responseJson.data.thread.data).to.not.equal('');
+
+    //     pm.expect(responseJson.data.thread.username).to.equal(pm.environment.get('newUsername'));
+
+    //     pm.expect(responseJson.data.thread.comments).to.be.an('array');
+
+    //     pm.expect(responseJson.data.thread.comments).to.have.length(2);
+
+    //     
+
+    //     const [comment] = responseJson.data.thread.comments;
+
+    // 
+
+    //     pm.expect(comment).to.be.an('object');
+
+    //     pm.expect(comment.id).to.be.a('string');
+
+    //     pm.expect(comment.username).to.equal(pm.environment.get('newUsername'));
+
+    //     pm.expect(comment.date).to.be.a('string');
+
+    //     pm.expect(comment.content).to.equal(pm.environment.get('newCommentContent'));
+
+    //     pm.expect(comment.replies).to.be.an('array');
+
+    //     pm.expect(comment.replies).to.have.length(2);
+
+    // 
+
+    //     const [reply1, reply2] = comment.replies;
+
+    // 
+
+    //     pm.expect(reply1).to.be.an('object');
+
+    //     pm.expect(reply1.id).to.be.a('string');
+
+    //     pm.expect(reply1.id).to.not.equal('');
+
+    //     pm.expect(reply1.content).to.equal('**balasan telah dihapus**');
+
+    //     pm.expect(reply1.date).to.be.a('string');
+
+    //     pm.expect(reply1.date).to.not.equal('');
+
+    //     pm.expect(reply1.username).to.equal(pm.environment.get('newUsername2'));
+
+    // 
+
+    //     pm.expect(reply2).to.be.an('object');
+
+    //     pm.expect(reply2.id).to.be.a('string');
+
+    //     pm.expect(reply2.id).to.not.equal('');
+
+    //     pm.expect(reply2.content).to.equal(pm.environment.get('newReplyContent'));
+
+    //     pm.expect(reply2.date).to.be.a('string');
+
+    //     pm.expect(reply2.date).to.not.equal('');
+
+    //     pm.expect(reply2.username).to.equal(pm.environment.get('newUsername'));
+
+    // });
+%}
