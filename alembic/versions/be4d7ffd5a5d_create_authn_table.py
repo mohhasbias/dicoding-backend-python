@@ -1,4 +1,4 @@
-"""create authn table
+"""create authentications table
 
 Revision ID: be4d7ffd5a5d
 Revises: 1542a23f27de
@@ -20,10 +20,10 @@ depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade() -> None:
     op.create_table(
-        'authn',
-        sa.Column('refresh_token', sa.String(255), primary_key=True),
+        'authentications',
+        sa.Column('token', sa.String(255), primary_key=True),
     )
 
 
 def downgrade() -> None:
-    op.drop_table('authn')
+    op.drop_table('authentications')

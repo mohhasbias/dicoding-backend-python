@@ -1,11 +1,18 @@
 import datetime
 import os
+from functools import wraps
 
 import jwt
-from flask import current_app
+from flask import current_app, request
 from jwt import PyJWTError
 
-from . import repository
+import app.db_engine
+from app.authentications import repository
+
+
+class AuthenticationError(Exception):
+    pass
+
 
 InvalidTokenError = jwt.InvalidTokenError
 
@@ -28,6 +35,7 @@ def authenticate_user(user):
 
 
 def create_refresh_token(user):
+    current_app.logger.debug(user)
     payload = {
         'id': user.get('id'),
         'username': user.get('username'),
@@ -66,7 +74,7 @@ def validate_token(token):
     # check if token exist in db
     try:
         repository.validate_refresh_token(token)
-    except repository.NotExistError:
+    except app.db_engine.NotExistError:
         raise InvalidTokenError("refresh token tidak valid")
 
     secret_key = os.environ.get('REFRESH_TOKEN_SECRET_KEY')
@@ -77,3 +85,28 @@ def validate_token(token):
         # If the token is expired, remove it from the database
         repository.delete_refresh_token(token)
         raise
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # Get the token from the header
+        token = request.headers.get('Authorization', "Bearer None").split(" ")[1]
+        current_app.logger.debug(token)
+        # Check if the user is authenticated
+        user = None
+        try:
+            secret_key = os.environ.get('ACCESS_TOKEN_SECRET_KEY')
+            user = jwt.decode(token, secret_key, algorithms='HS256')
+        except Exception:
+            raise AuthenticationError("Missing authentication")
+
+        current_app.logger.debug("user authenticated")
+        current_app.logger.debug(user)
+        request.user = {
+            'id': user.get('id'),
+            'username': user.get('username')
+        }
+        # If the user is authenticated, call the original function
+        return f(*args, **kwargs)
+    return decorated_function

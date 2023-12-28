@@ -1,17 +1,13 @@
 from sqlalchemy import MetaData, Table, and_
 from flask import current_app
 
-from app.db_engine import get_engine, get_session
+from app.db_engine import get_engine, get_session, NotExistError
 
 metadataUsers = MetaData()
 metadataAuthn = MetaData()
 
 users = Table('users', metadataUsers, autoload_with=get_engine())
-authn = Table('authn', metadataAuthn, autoload_with=get_engine())
-
-
-class NotExistError(Exception):
-    pass
+authn = Table('authentications', metadataAuthn, autoload_with=get_engine())
 
 
 def validate_credentials(user):
@@ -25,7 +21,7 @@ def validate_credentials(user):
         )
     )
     current_app.logger.debug(stmt)
-    result = get_session().execute(stmt).first()
+    result = get_session().execute(stmt).mappings().first()
     current_app.logger.debug(result)
     if result:
         return result
@@ -38,7 +34,7 @@ def validate_refresh_token(token):
     stmt = (
         authn
         .select()
-        .where(authn.c.refresh_token == token.get('refreshToken'))
+        .where(authn.c.token == token.get('refreshToken'))
     )
     result = get_session().execute(stmt).first()
     if not result:
@@ -48,7 +44,7 @@ def validate_refresh_token(token):
 def add_refresh_token(refresh_token):
     # save refresh token to db
     get_session().execute(authn.insert().values({
-        'refresh_token': refresh_token
+        'token': refresh_token
     }))
     get_session().commit()
 
@@ -56,6 +52,6 @@ def add_refresh_token(refresh_token):
 def delete_refresh_token(token):
     # delete refresh token from db
     get_session().execute(authn.delete().where(
-        authn.c.refresh_token == token.get('refreshToken')
+        authn.c.token == token.get('refreshToken')
     ))
     get_session().commit()

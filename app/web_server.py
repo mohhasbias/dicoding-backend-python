@@ -1,7 +1,8 @@
 from flask import Flask
 from jwt import InvalidTokenError
 
-from .authn.repository import NotExistError
+from .db_engine import NotExistError
+from app.security import AuthenticationError
 from .users.repository import AlreadyExistsError
 
 
@@ -43,6 +44,12 @@ def create_web_server(routes):
                 'status': 'fail',
                 'message': str(error)
             }, 400
+
+        if isinstance(error, AuthenticationError):
+            return {
+                'status': 'fail',
+                'message': str(error)
+            }, 401
 
         # check if flask is in debug mode
         if app.debug:

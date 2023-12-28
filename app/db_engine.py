@@ -14,8 +14,14 @@ def init_engine():
     global _session
 
     if _engine is None:
-        if 'DATABASE_URL' in os.environ:
-            _engine = create_engine(os.environ['DATABASE_URL'])
+        if 'PGHOST' in os.environ:
+            pghost = os.getenv("PGHOST")
+            pgport = os.getenv("PGPORT")
+            pguser = os.getenv("PGUSER")
+            pgpassword = os.getenv("PGPASSWORD")
+            pgdatabase = os.getenv("PGDATABASE")
+            database_url = f"postgresql://{pguser}:{pgpassword}@{pghost}:{pgport}/{pgdatabase}?sslmode=disable"
+            _engine = create_engine(database_url)
         else:
             _engine = create_engine('sqlite:///app.db')
 
@@ -46,3 +52,7 @@ def close_engine():
 
 
 init_engine()
+
+
+class NotExistError(Exception):
+    pass

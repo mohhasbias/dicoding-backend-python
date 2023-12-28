@@ -1,8 +1,9 @@
 from flask import current_app
 
+import app.db_engine
 from . import entities
 from . import repository
-from . import security
+from .. import security
 
 
 def authenticate_user(user):
@@ -10,12 +11,13 @@ def authenticate_user(user):
     user = entities.new_auth(**user)
 
     # validate credentials
-    repository.validate_credentials(user)
+    valid_user = repository.validate_credentials(user)
 
     current_app.logger.debug("user credentials validated")
+    current_app.logger.debug(valid_user)
 
     # call repository
-    authn_user = security.authenticate_user(user)
+    authn_user = security.authenticate_user(valid_user)
 
     # return result
     return authn_user
@@ -36,7 +38,7 @@ def logout(token):
     # check if token exist in db
     try:
         repository.validate_refresh_token(token)
-    except repository.NotExistError:
+    except app.db_engine.NotExistError:
         raise security.InvalidTokenError("refresh token tidak ditemukan di database")
 
     # delete token from db

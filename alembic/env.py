@@ -30,7 +30,14 @@ target_metadata = None
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
-config.set_main_option("sqlalchemy.url", os.getenv("DATABASE_URL"))
+# ; DATABASE_URL="postgres://developer:supersecretpassword@localhost:5432/forumapi?sslmode=disable"
+PGHOST=os.getenv("PGHOST")
+PGPORT=os.getenv("PGPORT")
+PGUSER=os.getenv("PGUSER")
+PGPASSWORD=os.getenv("PGPASSWORD")
+PGDATABASE=os.getenv("PGDATABASE")
+DATABASE_URL=f"postgres://{PGUSER}:{PGPASSWORD}@{PGHOST}:{PGPORT}/{PGDATABASE}?sslmode=disable"
+config.set_main_option("sqlalchemy.url", DATABASE_URL)
 
 
 def run_migrations_offline() -> None:
